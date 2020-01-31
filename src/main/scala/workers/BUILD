@@ -2,7 +2,7 @@ load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
 
 scala_binary(
     name = "workers",
-    srcs = glob(["**/*.scala"]),
+    srcs = glob(["*.scala"]),
     main_class = "phase_zinc.workers.ZincRunner",
     visibility = ["//visibility:public"],
     runtime_deps = [

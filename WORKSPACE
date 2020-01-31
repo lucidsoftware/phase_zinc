@@ -182,3 +182,8 @@ scala_repositories(scala_version_shas = (scala_version, scala_version_jar_shas))
 load("@phase_zinc//rules:workspace.bzl", "scala_repositories")
 
 scala_repositories()
+
+bind(
+    name = "default_scala",
+    actual = "//rules:zinc",
+)

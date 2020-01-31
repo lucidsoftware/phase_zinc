@@ -1,5 +1,6 @@
 load(
     "@io_bazel_rules_scala//scala:advanced_usage/scala.bzl",
+    _make_scala_binary = "make_scala_binary",
     _make_scala_library = "make_scala_library",
     _make_scala_test = "make_scala_test",
 )
@@ -22,7 +23,14 @@ load(
     _ext_zinc_compile = "ext_zinc_compile",
 )
 
-scala_library = _make_scala_library(_ext_zinc_compile)
+# with Zinc
+zinc_scala_binary = _make_scala_binary(_ext_zinc_compile)
+zinc_scala_library = _make_scala_library(_ext_zinc_compile)
+zinc_scala_test = _make_scala_test(_ext_zinc_compile)
+
+# without Zinc
+scala_binary = _make_scala_binary()
+scala_library = _make_scala_library()
 scala_test = _make_scala_test()
 
 def _configure_bootstrap_scala_implementation(ctx):
@@ -33,27 +41,6 @@ def _configure_bootstrap_scala_implementation(ctx):
             global_scalacopts = ctx.attr.global_scalacopts,
             runtime_classpath = ctx.attr.runtime_classpath,
             version = ctx.attr.version,
-        ),
-    ]
-
-def _configure_zinc_scala_implementation(ctx):
-    return [
-        _ScalaConfiguration(
-            compiler_classpath = ctx.attr.compiler_classpath,
-            global_plugins = ctx.attr.global_plugins,
-            global_scalacopts = ctx.attr.global_scalacopts,
-            runtime_classpath = ctx.attr.runtime_classpath,
-            version = ctx.attr.version,
-        ),
-        _ZincConfiguration(
-            compile_worker = ctx.attr._compile_worker,
-            compiler_bridge = ctx.file.compiler_bridge,
-            log_level = ctx.attr.log_level,
-        ),
-        _ScalaRulePhase(
-            phases = [
-                ("=", "compile", "compile", _phase_zinc_compile),
-            ],
         ),
     ]
 
@@ -78,6 +65,27 @@ configure_bootstrap_scala = rule(
     },
     implementation = _configure_bootstrap_scala_implementation,
 )
+
+def _configure_zinc_scala_implementation(ctx):
+    return [
+        _ScalaConfiguration(
+            compiler_classpath = ctx.attr.compiler_classpath,
+            global_plugins = ctx.attr.global_plugins,
+            global_scalacopts = ctx.attr.global_scalacopts,
+            runtime_classpath = ctx.attr.runtime_classpath,
+            version = ctx.attr.version,
+        ),
+        _ZincConfiguration(
+            compile_worker = ctx.attr._compile_worker,
+            compiler_bridge = ctx.file.compiler_bridge,
+            log_level = ctx.attr.log_level,
+        ),
+        _ScalaRulePhase(
+            custom_phases = [
+                ("=", "compile", "compile", _phase_zinc_compile),
+            ],
+        ),
+    ]
 
 configure_zinc_scala = rule(
     attrs = {
@@ -106,7 +114,7 @@ configure_zinc_scala = rule(
             default = "warn",
         ),
         "_compile_worker": attr.label(
-            default = "@rules_scala_annex//src/main/scala/higherkindness/rules_scala/workers/zinc/compile",
+            default = "@phase_zinc//src/main/scala/workers",
             allow_files = True,
             executable = True,
             cfg = "host",

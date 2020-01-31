@@ -1,0 +1,6 @@
+#!/bin/bash -e
+. "$(dirname "$0")"/../common.sh
+
+bazel build :scala_attr_binary
+bazel build :scala_attr_library
+bazel test :scala_attr_test
