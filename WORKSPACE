@@ -123,3 +123,23 @@ maven_install(
         "https://repo1.maven.org/maven2",
     ],
 )
+
+rules_scala_version = "7657d2f1bd630206c26aa1a14f7643ef66523c24"  # update this as needed
+
+rules_scala_sha = "9db99ff5977d23327c569e6ef0bec60bc261b3ee2e8a1bd8c878068eea799b39"
+
+http_archive(
+    name = "io_bazel_rules_scala",
+    sha256 = rules_scala_sha,
+    strip_prefix = "rules_scala-%s" % rules_scala_version,
+    type = "zip",
+    url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
+)
+
+load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
+
+scala_register_toolchains()
+
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+
+scala_repositories()

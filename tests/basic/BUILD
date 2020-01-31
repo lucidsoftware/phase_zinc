@@ -1,10 +1,7 @@
-load("@rules_java//java:defs.bzl", "java_test")
+load("@phase_zinc//rules:scala.bzl", "scala_test")
 
-java_test(
-    name = "hello",
-    srcs = ["TestHello.java"],
-    test_class = "com.example.myproject.TestHello",
-    deps = [
-        "@maven//:junit_junit_4_12",
-    ],
+scala_test(
+    name = "stack",
+    size = "small",
+    srcs = ["TestStack.scala"],
 )
