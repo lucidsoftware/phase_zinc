@@ -123,6 +123,7 @@ maven_install(
         "org.scala-sbt:compiler-interface:1.2.1",
         "org.scala-sbt:util-interface:1.2.0",
     ],
+    maven_install_json = "//:maven_install.json",
     repositories = [
         "https://repo.maven.apache.org/maven2",
         "https://maven-central.storage-download.googleapis.com/maven2",
@@ -130,6 +131,10 @@ maven_install(
         "https://jcenter.bintray.com",
     ],
 )
+
+load("@maven//:defs.bzl", "pinned_maven_install")
+
+pinned_maven_install()
 
 ################################################################################
 # rules_scala
