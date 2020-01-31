@@ -98,6 +98,10 @@ http_archive(
     url = "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u212-b03/OpenJDK8U-jdk_x64_mac_hotspot_8u212b03.tar.gz",
 )
 
+################################################################################
+# rules_jvm_external
+################################################################################
+
 RULES_JVM_EXTERNAL_TAG = "3.0"
 
 RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
@@ -113,16 +117,23 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "junit:junit:4.12",
+        "org.scala-lang:scala-compiler:2.12.10",
+        "org.scala-lang:scala-library:2.12.10",
+        "org.scala-lang:scala-reflect:2.12.10",
+        "org.scala-sbt:compiler-interface:1.2.1",
+        "org.scala-sbt:util-interface:1.2.0",
     ],
     repositories = [
-        # Private repositories are supported through HTTP Basic auth
-        "http://username:password@localhost:8081/artifactory/my-repository",
-        "https://jcenter.bintray.com/",
-        "https://maven.google.com",
-        "https://repo1.maven.org/maven2",
+        "https://repo.maven.apache.org/maven2",
+        "https://maven-central.storage-download.googleapis.com/maven2",
+        "https://mirror.bazel.build/repo1.maven.org/maven2",
+        "https://jcenter.bintray.com",
     ],
 )
+
+################################################################################
+# rules_scala
+################################################################################
 
 rules_scala_version = "7657d2f1bd630206c26aa1a14f7643ef66523c24"  # update this as needed
 
@@ -141,5 +152,13 @@ load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 scala_register_toolchains()
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+
+scala_repositories()
+
+################################################################################
+# phase_zinc
+################################################################################
+
+load("@phase_zinc//rules:workspace.bzl", "scala_repositories")
 
 scala_repositories()
