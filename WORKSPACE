@@ -121,7 +121,14 @@ maven_install(
         "org.scala-lang:scala-library:2.12.10",
         "org.scala-lang:scala-reflect:2.12.10",
         "org.scala-sbt:compiler-interface:1.2.1",
-        "org.scala-sbt:util-interface:1.2.0",
+        "org.scala-sbt:util-interface:1.2.1",
+        "org.scala-sbt:zinc_2.12:1.2.1",
+        "org.scala-sbt:zinc-compile-core_2.12:1.2.1",
+        "org.scala-sbt:test-interface:1.0",
+        "com.lihaoyi:sourcecode_2.12:0.1.4,",
+        "net.sourceforge.argparse4j:argparse4j:0.8.1",
+        "org.scala-sbt:util-logging_2.12:1.2.0",
+        "org.scala-sbt:compiler-interface:1.2.1",
     ],
     maven_install_json = "//:maven_install.json",
     repositories = [
@@ -156,9 +163,17 @@ load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 
 scala_register_toolchains()
 
+scala_version = "2.12.8"
+
+scala_version_jar_shas = {
+    "scala_compiler": "f34e9119f45abd41e85b9e121ba19dd9288b3b4af7f7047e86dc70236708d170",
+    "scala_library": "321fb55685635c931eba4bc0d7668349da3f2c09aee2de93a70566066ff25c28",
+    "scala_reflect": "4d6405395c4599ce04cea08ba082339e3e42135de9aae2923c9f5367e957315a",
+}
+
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 
-scala_repositories()
+scala_repositories(scala_version_shas = (scala_version, scala_version_jar_shas))
 
 ################################################################################
 # phase_zinc
