@@ -21,10 +21,6 @@ ext_zinc_compile = {
             ],
         ),
     },
-    # "outputs": {
-    #     "scalafmt_runner": "%{name}.format",
-    #     "scalafmt_testrunner": "%{name}.format-test",
-    # },
     "phase_providers": [
         "@phase_zinc//rules/ext:phase_zinc_compile",
     ],

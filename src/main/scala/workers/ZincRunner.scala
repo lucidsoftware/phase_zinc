@@ -57,7 +57,7 @@ import xsbti.compile.Setup
  * Currently, this runner follows strategy A.
  */
 
- object ZincRunner extends GenericWorker(new ZincProcessor) {
+object ZincRunner extends GenericWorker(new ZincProcessor) {
   def main(args: Array[String]) {
     try run(args)
     catch {
@@ -95,7 +95,6 @@ class ZincProcessor extends Processor {
 
   // protected[this] def work(worker: Namespace, args: Array[String], out: PrintStream) = {
   def processRequest(args: java.util.List[String]) {
-
 
     val parser = ArgumentParsers.newFor("zinc").addHelp(true).defaultFormatWidth(80).fromFilePrefix("@").build()
     parser.addArgument("--persistence_dir", /* deprecated */ "--persistenceDir").metavar("path")

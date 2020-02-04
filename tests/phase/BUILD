@@ -7,7 +7,7 @@ load(
 
 zinc_scala_binary(
     name = "scala_attr_binary",
-    srcs = ["ScalaAttrLibrary.scala"],
+    srcs = ["ScalaAttrBinary.scala"],
     main_class = "com.phase_zinc.tests.phase.ScalaAttrBinary",
     visibility = ["//visibility:public"],
 )
