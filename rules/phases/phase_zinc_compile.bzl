@@ -23,7 +23,7 @@ def phase_zinc_compile(ctx, p):
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
 
-    label_path = ctx.label.name + "zinc"
+    label_path = "zinc/" + ctx.label.name
     apis = ctx.actions.declare_file("{}/apis.gz".format(label_path))
     infos = ctx.actions.declare_file("{}/infos.gz".format(label_path))
     mains_file = ctx.actions.declare_file("{}.jar.mains.txt".format(label_path))
@@ -123,9 +123,10 @@ def phase_zinc_compile(ctx, p):
 
     return struct(
         mains_file = mains_file,
+        files = depset([mains_file]),
         used = used,
         external_providers = {
-            "zinc_info": zinc_info,
+            "ZincInfo": zinc_info,
         },
     )
 
@@ -149,8 +150,9 @@ def _classpaths(ctx, scala_configuration):
         for dep in ctx.attr.deps
         if _ScalaInfo in dep and dep[_ScalaInfo].macro
     ]
+    scalatest = [ctx.attr._scalatest] if hasattr(ctx.attr, "_scalatest") else []
     sdeps = java_common.merge(
-        _collect(JavaInfo, scala_configuration.runtime_classpath + ctx.attr.deps),
+        _collect(JavaInfo, scala_configuration.runtime_classpath + ctx.attr.deps + scalatest),
     )
 
     compile_classpath = depset(

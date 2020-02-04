@@ -185,5 +185,5 @@ scala_repositories()
 
 bind(
     name = "default_scala",
-    actual = "//rules:zinc",
+    actual = "@phase_zinc//rules:zinc",
 )

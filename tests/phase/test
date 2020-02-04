@@ -3,4 +3,21 @@
 
 bazel build :scala_attr_binary
 bazel build :scala_attr_library
-bazel test :scala_attr_test
+bazel build :scala_attr_test
+
+check_file() {
+    path=$1
+    files=(apis.gz classes.jar infos.gz relations.gz setup.gz stamps.gz)
+
+    for file in "${files[@]}"; do
+        if [[ -f $path/$file ]]; then
+            continue
+        else
+            return false
+        fi
+    done
+}
+
+check_file $(bazel info bazel-bin)/tests/phase/zinc/scala_attr_binary
+check_file $(bazel info bazel-bin)/tests/phase/zinc/scala_attr_library
+check_file $(bazel info bazel-bin)/tests/phase/zinc/scala_attr_test

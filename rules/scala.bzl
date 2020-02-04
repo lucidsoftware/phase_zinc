@@ -80,11 +80,6 @@ def _configure_zinc_scala_implementation(ctx):
             compiler_bridge = ctx.file.compiler_bridge,
             log_level = ctx.attr.log_level,
         ),
-        _ScalaRulePhase(
-            custom_phases = [
-                ("=", "compile", "compile", _phase_zinc_compile),
-            ],
-        ),
     ]
 
 configure_zinc_scala = rule(
