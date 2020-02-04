@@ -1,7 +1,9 @@
+package com.phase_zinc.tests.basic
+
 import collection.mutable.Stack
 import org.scalatest._
 
-class StackSpec extends FlatSpec {
+class StackTest extends FlatSpec {
 
   "A Stack" should "pop values in last-in-first-out order" in {
     val stack = new Stack[Int]

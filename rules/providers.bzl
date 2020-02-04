@@ -9,6 +9,14 @@ ScalaConfiguration = provider(
     },
 )
 
+ScalaInfo = provider(
+    doc = "Scala library.",
+    fields = {
+        "macro": "whether the jar contains macros",
+        "scala_configuration": "ScalaConfiguration associated with this output",
+    },
+)
+
 ZincConfiguration = provider(
     doc = "Zinc configuration.",
     fields = {
