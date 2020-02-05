@@ -28,7 +28,9 @@ def phase_zinc_compile(ctx, p):
     setup = ctx.actions.declare_file("{}/setup.gz".format(label_path))
     stamps = ctx.actions.declare_file("{}/stamps.gz".format(label_path))
     used = ctx.actions.declare_file("{}/deps_used.txt".format(label_path))
-    jar = ctx.actions.declare_file("{}/classes.jar".format(label_path))
+
+    # TODO: fix this hack
+    jar = ctx.actions.declare_file("{}.jar".format(ctx.label.name))
 
     tmp = ctx.actions.declare_directory("{}/tmp".format(label_path))
 
@@ -118,9 +120,18 @@ def phase_zinc_compile(ctx, p):
         ),
     )
 
+    # TODO: fix this hack
+    temp_statsfile = ctx.actions.declare_file("{}.statsfile".format(ctx.label.name))
+    ctx.actions.run_shell(
+        outputs = [temp_statsfile],
+        command = "echo statefile > '%s'" % (temp_statsfile.path),
+    )
+
     return struct(
         mains_file = mains_file,
         files = depset([mains_file]),
+        # TODO: fix this hack
+        rjars = depset([ctx.outputs.jar], transitive = [p.collect_jars.transitive_runtime_jars]),
         used = used,
         external_providers = {
             "ZincInfo": zinc_info,

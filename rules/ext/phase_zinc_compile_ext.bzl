@@ -30,7 +30,7 @@ def _zinc_compile_singleton_implementation(ctx):
     return [
         _ScalaRulePhase(
             custom_phases = [
-                ("+", "compile", "zinc_compile", _phase_zinc_compile),
+                ("=", "compile", "compile", _phase_zinc_compile),
             ],
         ),
     ]
