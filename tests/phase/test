@@ -7,7 +7,7 @@ bazel build :scala_attr_test
 
 check_file() {
     path=$1
-    files=(apis.gz classes.jar infos.gz relations.gz setup.gz stamps.gz)
+    files=(apis.gz infos.gz relations.gz setup.gz stamps.gz)
 
     for file in "${files[@]}"; do
         if [[ -f $path/$file ]]; then
