@@ -17,22 +17,27 @@ def scala_repositories():
     )
 
 def zinc_repositories():
+    phase_zinc_artifacts = [
+        "org.scala-lang:scala-compiler:2.12.8",
+        "org.scala-lang:scala-library:2.12.8",
+        "org.scala-lang:scala-reflect:2.12.8",
+        "org.scala-sbt:compiler-interface:1.2.1",
+        "org.scala-sbt:util-interface:1.2.1",
+        "org.scala-sbt:zinc_2.12:1.2.1",
+        "org.scala-sbt:zinc-compile-core_2.12:1.2.1",
+        "org.scala-sbt:test-interface:1.0",
+        "com.lihaoyi:sourcecode_2.12:0.1.4,",
+        "net.sourceforge.argparse4j:argparse4j:0.8.1",
+        "org.scala-sbt:util-logging_2.12:1.2.0",
+        "org.scala-sbt:compiler-interface:1.2.1",
+    ]
+    tests_artifacts = [
+        "org.scalatest:scalatest_2.12:3.0.5",
+        "joda-time:joda-time:2.3",
+    ]
     maven_install(
         name = "zinc",
-        artifacts = [
-            "org.scala-lang:scala-compiler:2.12.10",
-            "org.scala-lang:scala-library:2.12.10",
-            "org.scala-lang:scala-reflect:2.12.10",
-            "org.scala-sbt:compiler-interface:1.2.1",
-            "org.scala-sbt:util-interface:1.2.1",
-            "org.scala-sbt:zinc_2.12:1.2.1",
-            "org.scala-sbt:zinc-compile-core_2.12:1.2.1",
-            "org.scala-sbt:test-interface:1.0",
-            "com.lihaoyi:sourcecode_2.12:0.1.4,",
-            "net.sourceforge.argparse4j:argparse4j:0.8.1",
-            "org.scala-sbt:util-logging_2.12:1.2.0",
-            "org.scala-sbt:compiler-interface:1.2.1",
-        ],
+        artifacts = phase_zinc_artifacts + tests_artifacts,
         maven_install_json = "@phase_zinc//:zinc_install.json",
         repositories = [
             "https://repo.maven.apache.org/maven2",
