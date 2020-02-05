@@ -6,9 +6,9 @@ scala_library(
     visibility = ["//visibility:public"],
     deps = [
         "//src/main/scala/common/args",
-        "@maven//:net_sourceforge_argparse4j_argparse4j",
-        "@maven//:org_scala_sbt_compiler_interface",
-        "@maven//:org_scala_sbt_util_interface",
-        "@maven//:org_scala_sbt_zinc_compile_core_2_12",
+        "@zinc//:net_sourceforge_argparse4j_argparse4j",
+        "@zinc//:org_scala_sbt_compiler_interface",
+        "@zinc//:org_scala_sbt_util_interface",
+        "@zinc//:org_scala_sbt_zinc_compile_core_2_12",
     ],
 )

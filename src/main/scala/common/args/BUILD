@@ -5,6 +5,6 @@ scala_library(
     srcs = glob(["*.scala"]),
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:net_sourceforge_argparse4j_argparse4j",
+        "@zinc//:net_sourceforge_argparse4j_argparse4j",
     ],
 )

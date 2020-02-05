@@ -113,33 +113,11 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
-load("@rules_jvm_external//:defs.bzl", "maven_install")
+load("@phase_zinc//rules:workspace.bzl", "zinc_repositories")
 
-maven_install(
-    artifacts = [
-        "org.scala-lang:scala-compiler:2.12.10",
-        "org.scala-lang:scala-library:2.12.10",
-        "org.scala-lang:scala-reflect:2.12.10",
-        "org.scala-sbt:compiler-interface:1.2.1",
-        "org.scala-sbt:util-interface:1.2.1",
-        "org.scala-sbt:zinc_2.12:1.2.1",
-        "org.scala-sbt:zinc-compile-core_2.12:1.2.1",
-        "org.scala-sbt:test-interface:1.0",
-        "com.lihaoyi:sourcecode_2.12:0.1.4,",
-        "net.sourceforge.argparse4j:argparse4j:0.8.1",
-        "org.scala-sbt:util-logging_2.12:1.2.0",
-        "org.scala-sbt:compiler-interface:1.2.1",
-    ],
-    maven_install_json = "//:maven_install.json",
-    repositories = [
-        "https://repo.maven.apache.org/maven2",
-        "https://maven-central.storage-download.googleapis.com/maven2",
-        "https://mirror.bazel.build/repo1.maven.org/maven2",
-        "https://jcenter.bintray.com",
-    ],
-)
+zinc_repositories()
 
-load("@maven//:defs.bzl", "pinned_maven_install")
+load("@zinc//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
 
