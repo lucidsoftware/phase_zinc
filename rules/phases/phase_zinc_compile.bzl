@@ -28,9 +28,7 @@ def phase_zinc_compile(ctx, p):
     setup = ctx.actions.declare_file("{}/setup.gz".format(label_path))
     stamps = ctx.actions.declare_file("{}/stamps.gz".format(label_path))
     used = ctx.actions.declare_file("{}/deps_used.txt".format(label_path))
-
-    # TODO: fix this hack
-    jar = ctx.actions.declare_file("{}.jar".format(ctx.label.name))
+    class_jar = ctx.actions.declare_file("{}/classes.jar".format(label_path))
 
     tmp = ctx.actions.declare_directory("{}/tmp".format(label_path))
 
@@ -60,7 +58,7 @@ def phase_zinc_compile(ctx, p):
     args.add("--main_manifest", mains_file)
     args.add("--output_apis", apis)
     args.add("--output_infos", infos)
-    args.add("--output_jar", jar)
+    args.add("--output_jar", class_jar)
     args.add("--output_relations", relations)
     args.add("--output_setup", setup)
     args.add("--output_stamps", stamps)
@@ -85,7 +83,7 @@ def phase_zinc_compile(ctx, p):
         ] + [zinc.deps_files for zinc in zincs],
     )
 
-    outputs = [jar, mains_file, apis, infos, relations, setup, stamps, used, tmp]
+    outputs = [class_jar, mains_file, apis, infos, relations, setup, stamps, used, tmp]
 
     # todo: different execution path for nosrc jar?
     ctx.actions.run(
@@ -127,9 +125,21 @@ def phase_zinc_compile(ctx, p):
         command = "echo statefile > '%s'" % (temp_statsfile.path),
     )
 
+    inputs = [f for f in ctx.files.resource_jars if f.extension.lower() in ["jar"]]
+    phantom_inputs = []
+    for v in [getattr(p, k) for k in dir(p) if k not in ["to_json", "to_proto"]]:
+        if hasattr(v, "jar"):
+            jar = getattr(v, "jar")
+            inputs.append(jar)
+        if hasattr(v, "outputs"):
+            phantom_inputs.extend(getattr(v, "outputs"))
+    inputs.append(class_jar)
+
+    _action_singlejar(ctx, inputs, ctx.outputs.jar, phantom_inputs)
+
     return struct(
         mains_file = mains_file,
-        files = depset([mains_file]),
+        files = depset([ctx.outputs.jar]),
         # TODO: fix this hack
         rjars = depset([ctx.outputs.jar], transitive = [p.collect_jars.transitive_runtime_jars]),
         used = used,
