@@ -1,6 +1,6 @@
-package com.phase_zinc.tests.phase
+package com.phase_zinc.tests.zinc_output
 
-object ScalaAttrBinary {
+object Binary {
   def main(args: Array[String]) {
     val phase = "zinc"
   }

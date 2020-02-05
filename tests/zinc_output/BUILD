@@ -6,20 +6,20 @@ load(
 )
 
 zinc_scala_binary(
-    name = "scala_attr_binary",
-    srcs = ["ScalaAttrBinary.scala"],
-    main_class = "com.phase_zinc.tests.phase.ScalaAttrBinary",
+    name = "binary",
+    srcs = ["Binary.scala"],
+    main_class = "com.phase_zinc.tests.zinc_output.Binary",
     visibility = ["//visibility:public"],
 )
 
 zinc_scala_library(
-    name = "scala_attr_library",
-    srcs = ["ScalaAttrLibrary.scala"],
+    name = "library",
+    srcs = ["Library.scala"],
     visibility = ["//visibility:public"],
 )
 
 zinc_scala_test(
-    name = "scala_attr_test",
-    srcs = ["ScalaAttrTest.scala"],
+    name = "test",
+    srcs = ["Test.scala"],
     visibility = ["//visibility:public"],
 )
