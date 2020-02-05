@@ -17,9 +17,6 @@ load(
 )
 
 def phase_zinc_compile(ctx, p):
-    if _ZincConfiguration not in ctx.attr.scala:
-        return struct()
-
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
 
