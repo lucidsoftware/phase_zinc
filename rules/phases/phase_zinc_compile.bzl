@@ -145,6 +145,7 @@ def phase_zinc_compile(ctx, p):
         used = used,
         external_providers = {
             "ZincInfo": zinc_info,
+            "JavaInfo": java_info,
         },
     )
 
