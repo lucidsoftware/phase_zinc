@@ -7,13 +7,13 @@ load(
 scala_version = "2.12.8"
 
 compiler_classpath = [
-    "@maven//:org_scala_lang_scala_compiler",
-    "@maven//:org_scala_lang_scala_library",
-    "@maven//:org_scala_lang_scala_reflect",
+    "@zinc//:org_scala_lang_scala_compiler",
+    "@zinc//:org_scala_lang_scala_library",
+    "@zinc//:org_scala_lang_scala_reflect",
 ]
 
 runtime_classpath = [
-    "@maven//:org_scala_lang_scala_library",
+    "@zinc//:org_scala_lang_scala_library",
 ]
 
 scala_library(
@@ -23,8 +23,8 @@ scala_library(
     ],
     visibility = ["//visibility:public"],
     deps = compiler_classpath + [
-        "@maven//:org_scala_sbt_compiler_interface",
-        "@maven//:org_scala_sbt_util_interface",
+        "@zinc//:org_scala_sbt_compiler_interface",
+        "@zinc//:org_scala_sbt_util_interface",
     ],
 )
 

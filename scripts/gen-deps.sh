@@ -10,4 +10,4 @@
 cd "$(dirname "$0")/.."
 
 echo "generating dependencies for main workspace"
-bazel run @unpinned_maven//:pin
+bazel run @unpinned_zinc//:pin
