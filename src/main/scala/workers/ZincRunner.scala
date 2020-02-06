@@ -264,11 +264,11 @@ class ZincProcessor extends Processor {
     val compileResult =
       try incrementalCompiler.compile(inputs, logger)
       catch {
-        case _: CompileFailed => sys.exit(-1)
+        case e: CompileFailed => throw new Exception("Compilation failed")
         case e: ClassFormatError =>
           System.err.println(e)
-          println("You may be missing a `macro = True` attribute.")
-          sys.exit(1)
+          System.err.println("You may be missing a `macro = True` attribute.")
+          throw new Exception("Class Format Error")
       }
 
     // create analyses
