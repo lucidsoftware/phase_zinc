@@ -165,3 +165,32 @@ bind(
     name = "default_scala",
     actual = "@phase_zinc//rules:zinc",
 )
+
+################################################################################
+# higherkindness rules_scala
+################################################################################
+rules_scala_annex_version = "9631f2b7496b39930e1b7a18e622de64e9eb6c9f"
+
+rules_scala_annex_sha = "aee60e515af81a7383a252f3258bc2141a407e860c3a13cae60a184d48cedbb1"
+
+http_archive(
+    name = "rules_scala_annex",
+    sha256 = rules_scala_annex_sha,
+    strip_prefix = "rules_scala-{}".format(rules_scala_annex_version),
+    type = "zip",
+    url = "https://github.com/higherkindness/rules_scala/archive/{}.zip".format(rules_scala_annex_version),
+)
+
+load(
+    "@rules_scala_annex//rules/scala:workspace.bzl",
+    "scala_register_toolchains",
+    "scala_repositories",
+)
+
+scala_repositories()
+
+load("@annex//:defs.bzl", annex_pinned_maven_install = "pinned_maven_install")
+
+annex_pinned_maven_install()
+
+scala_register_toolchains()

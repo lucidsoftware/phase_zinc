@@ -1,0 +1,11 @@
+#!/bin/bash -e
+. "$(dirname "$0")"/../common.sh
+
+bazel test :college_test_higherkindness
+bazel test :college_test_zinc
+
+path=$(bazel info bazel-bin)/tests/higherkindness_compare
+
+diff $path/course_higherkindness.jar $path/course_zinc.jar
+diff $path/college_higherkindness.jar $path/college_zinc.jar
+diff $path/college_test_higherkindness.jar $path/college_test_zinc.jar
