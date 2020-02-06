@@ -1,0 +1,16 @@
+#!/bin/bash -e
+. "$(dirname "$0")"/../common.sh
+
+error_exit() {
+    rm output
+    return 1
+}
+
+bazel build :bad_syntax > output 2>&1 || true
+
+cat output | grep -q $'\[\e\[31mError\e\[0m\] tests/logger/BadSyntax.scala:3 not found: type Stringg' || error_exit
+cat output | grep -q $'\[\e\[31mError\e\[0m\] tests/logger/BadSyntax.scala:4 type mismatch;' || error_exit
+cat output | grep -q $'\[\e\[31mError\e\[0m\] tests/logger/BadSyntax.scala:5 not found: value see' || error_exit
+cat output | grep -q $'three errors found' || error_exit
+cat output | grep -q $'Compilation failed' || error_exit
+rm output
