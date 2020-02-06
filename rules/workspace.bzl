@@ -18,9 +18,9 @@ def scala_repositories():
 
 def zinc_repositories():
     phase_zinc_artifacts = [
-        "org.scala-lang:scala-compiler:2.12.8",
-        "org.scala-lang:scala-library:2.12.8",
-        "org.scala-lang:scala-reflect:2.12.8",
+        "org.scala-lang:scala-compiler:2.12.10",
+        "org.scala-lang:scala-library:2.12.10",
+        "org.scala-lang:scala-reflect:2.12.10",
         "org.scala-sbt:compiler-interface:1.2.1",
         "org.scala-sbt:util-interface:1.2.1",
         "org.scala-sbt:zinc_2.12:1.2.1",
