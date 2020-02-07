@@ -102,15 +102,15 @@ http_archive(
 # rules_jvm_external
 ################################################################################
 
-RULES_JVM_EXTERNAL_TAG = "3.0"
+RULES_JVM_EXTERNAL_TAG = "3.1"
 
-RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
+RULES_JVM_EXTERNAL_SHA = "e246373de2353f3d34d35814947aa8b7d0dd1a58c2f7a6c41cfeaff3007c2d14"
 
 http_archive(
     name = "rules_jvm_external",
     sha256 = RULES_JVM_EXTERNAL_SHA,
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+    strip_prefix = "rules_jvm_external-{}".format(RULES_JVM_EXTERNAL_TAG),
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/{}.zip".format(RULES_JVM_EXTERNAL_TAG),
 )
 
 load("@phase_zinc//rules:workspace.bzl", "zinc_repositories")
@@ -125,16 +125,16 @@ pinned_maven_install()
 # rules_scala
 ################################################################################
 
-rules_scala_version = "30b80b03a410994a8abb93d5a3f81b0d1f5cb96f"  # update this as needed
+rules_scala_version = "f22090751b3e7527a0b2356139817f3c6c028020"  # update this as needed
 
-rules_scala_sha = "7bb0b2087a378ac03fcd0d54e90ac66a890294013a5a4ced191e43d6e0801115"
+rules_scala_sha = "774a2640896d8b98a36ad6d0c447657fcfb5963f3068c16b8242221315aafafd"
 
 http_archive(
     name = "io_bazel_rules_scala",
     sha256 = rules_scala_sha,
-    strip_prefix = "rules_scala-%s" % rules_scala_version,
+    strip_prefix = "rules_scala-{}".format(rules_scala_version),
     type = "zip",
-    url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
+    url = "https://github.com/bazelbuild/rules_scala/archive/{}.zip".format(rules_scala_version),
 )
 
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
@@ -169,9 +169,9 @@ bind(
 ################################################################################
 # higherkindness rules_scala
 ################################################################################
-rules_scala_annex_version = "d1ed606a5196d8a2111dc2feee9d7f8d7bc6b1b2"
+rules_scala_annex_version = "77ee0ccf3cb13da0c58e1d98977b324862be458b"
 
-rules_scala_annex_sha = "48ca63105ac8b27bc39a86753b306dbadb416ceeace5bd35910e228c88a624ea"
+rules_scala_annex_sha = "6f82b32636a73bff78fdd1ae640aa3d9064223fa93d1f02c8670f04b802caa27"
 
 http_archive(
     name = "rules_scala_annex",
