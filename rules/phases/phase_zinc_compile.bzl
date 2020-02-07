@@ -9,6 +9,13 @@ load(
     "find_java_toolchain",
 )
 load(
+    "@io_bazel_rules_scala//scala/private:paths.bzl",
+    "get_files_with_extension",
+    "java_extension",
+    "scala_extension",
+    "srcjar_extension",
+)
+load(
     "@phase_zinc//rules:providers.bzl",
     _ScalaConfiguration = "ScalaConfiguration",
     _ScalaInfo = "ScalaInfo",
@@ -43,8 +50,8 @@ def phase_zinc_compile(ctx, p):
 
     compiler_classpath, compile_classpath, plugin_classpath = _classpaths(ctx, scala_configuration)
 
-    srcs = [file for file in ctx.files.srcs if file.extension.lower() in ["java", "scala"]]
-    src_jars = [file for file in ctx.files.srcs if file.extension.lower() in ["srcjar"]]
+    srcs = get_files_with_extension(ctx, java_extension) + get_files_with_extension(ctx, scala_extension)
+    src_jars = get_files_with_extension(ctx, srcjar_extension)
 
     args = ctx.actions.args()
     args.add_all(depset(transitive = [zinc.deps for zinc in zincs]), map_each = _compile_analysis)
