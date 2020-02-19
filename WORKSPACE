@@ -125,9 +125,9 @@ pinned_maven_install()
 # rules_scala
 ################################################################################
 
-rules_scala_version = "f22090751b3e7527a0b2356139817f3c6c028020"  # update this as needed
+rules_scala_version = "0366fb23cb91fee2847a8358472278ddc9940c5f"  # update this as needed
 
-rules_scala_sha = "774a2640896d8b98a36ad6d0c447657fcfb5963f3068c16b8242221315aafafd"
+rules_scala_sha = "3d40732974c31d83a126c36842b49a0bbcd07a52c0a94e039627abb70581e39c"
 
 http_archive(
     name = "io_bazel_rules_scala",
