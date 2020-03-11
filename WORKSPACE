@@ -169,9 +169,9 @@ bind(
 ################################################################################
 # higherkindness rules_scala
 ################################################################################
-rules_scala_annex_version = "77ee0ccf3cb13da0c58e1d98977b324862be458b"
+rules_scala_annex_version = "908367d76dc3915c718641096768a363a0b55d4e"
 
-rules_scala_annex_sha = "6f82b32636a73bff78fdd1ae640aa3d9064223fa93d1f02c8670f04b802caa27"
+rules_scala_annex_sha = "1509e8b79c1172772459ae405dec4c0048473a65adfc241402494d5f2ee48eaf"
 
 http_archive(
     name = "rules_scala_annex",

@@ -4,7 +4,7 @@ load(
     "scala_library",
 )
 
-scala_version = "2.12.8"
+scala_version = "2.12.10"
 
 compiler_classpath = [
     "@zinc//:org_scala_lang_scala_compiler",
