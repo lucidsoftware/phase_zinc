@@ -106,8 +106,8 @@ class AnxAnalyses(format: AnxAnalysisStore.Format) {
   private[this] val writer = new ProtobufWriters(mappers.getWriteMapper)
 
   def apis = new Store[APIs](
-    stream => reader.fromApis(true)(format.read(schema.APIs, stream)),
-    (stream, value) => format.write(writer.toApis(value, true).update(apiFileWrite), stream)
+    stream => reader.fromApis(shouldStoreApis=true)(format.read(schema.APIs, stream)),
+    (stream, value) => format.write(writer.toApis(value, shouldStoreApis=true).update(apiFileWrite), stream)
   )
 
   def miniSetup = new Store[MiniSetup](
