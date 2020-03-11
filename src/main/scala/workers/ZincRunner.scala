@@ -11,6 +11,7 @@ import phase_zinc.common.logger.LoggedReporter
 import com.google.devtools.build.buildjar.jarhelper.JarCreator
 
 import java.io.{File, PrintStream, PrintWriter}
+import java.net.URLClassLoader
 import java.nio.file.{Files, NoSuchFileException, Path, Paths}
 import java.text.SimpleDateFormat
 import java.util.{Date, Optional, Properties, List => JList}
@@ -70,7 +71,7 @@ object ZincRunner extends GenericWorker(new ZincProcessor) {
 
 class ZincProcessor extends Processor {
 
-  private[this] val classloaderCache = new ClassLoaderCache(null)
+  private[this] val classloaderCache = new ClassLoaderCache(new URLClassLoader(Array()))
 
   private[this] val compilerCache = CompilerCache.fresh
 
