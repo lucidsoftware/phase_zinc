@@ -117,7 +117,7 @@ def phase_zinc_compile(ctx, p):
         deps = depset(
             [struct(
                 apis = apis,
-                jars = jars,
+                jars = tuple(jars),
                 label = ctx.label,
                 relations = relations,
             )],
