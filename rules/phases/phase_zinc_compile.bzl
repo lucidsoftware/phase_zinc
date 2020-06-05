@@ -25,6 +25,7 @@ load(
 
 # This function provides the logic for the Zinc compiler phase
 def phase_zinc_compile(ctx, p):
+    #  This configuration data is provided in //rules/BUILD.bazel, based on implementation defined in //rules/scala.bzl
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
 
@@ -79,6 +80,8 @@ def phase_zinc_compile(ctx, p):
     args.set_param_file_format("multiline")
     args.use_param_file("@%s", use_always = True)
 
+    # Scala binary compiled from target @phase_zinc//src/main/scala/workers
+    # This builds the Zinc compile runner
     worker = zinc_configuration.compile_worker
 
     worker_inputs, _, input_manifests = ctx.resolve_command(tools = [worker])

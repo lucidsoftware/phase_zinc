@@ -70,6 +70,7 @@ configure_bootstrap_scala = rule(
     implementation = _configure_bootstrap_scala_implementation,
 )
 
+# This rule/implementation load values into ScalaConfiguration and ZincConfiguration, which are later passed into phase_zinc_compile
 def _configure_zinc_scala_implementation(ctx):
     return [
         _ScalaConfiguration(
