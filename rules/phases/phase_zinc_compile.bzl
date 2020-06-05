@@ -23,6 +23,7 @@ load(
     _ZincInfo = "ZincInfo",
 )
 
+# This function provides the logic for the Zinc compiler phase
 def phase_zinc_compile(ctx, p):
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
