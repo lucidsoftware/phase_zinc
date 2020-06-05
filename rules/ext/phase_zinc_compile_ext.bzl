@@ -12,6 +12,11 @@ load(
     _ZincConfiguration = "ZincConfiguration",
 )
 
+# This is a dictionary containing the phase to be inserted. 
+# It also adds a "scala" attribute which ensures a ScalaConfiguration provider is  
+#  available to the phase logic in //rules/phases/phase_zinc_compile.bzl
+
+# In //rules/scala.bzl, ext_zinc_compile is used to make custom variants of rules (scala_binary --> zinc_scala_binary, etc)
 ext_zinc_compile = {
     "attrs": {
         "scala": attr.label(
@@ -28,9 +33,13 @@ ext_zinc_compile = {
     ],
 }
 
+# When built, this rule creates a phase in the format that maker functions are expecting
 def _zinc_compile_singleton_implementation(ctx):
     return [
         _ScalaRulePhase(
+            # When the maker_scala_binary (or similar) function runs, it will assign the label "compile" to _phase_zinc_compile
+            #  and insert it in the place where the previous phase labeled "compile" was.
+            # Essentially, this replaces the old compiler with our Zinc compiler.
             custom_phases = [
                 ("=", "compile", "compile", _phase_zinc_compile),
             ],
