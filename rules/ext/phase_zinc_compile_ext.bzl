@@ -9,15 +9,17 @@ load(
 load(
     "@phase_zinc//rules:providers.bzl",
     _ScalaConfiguration = "ScalaConfiguration",
+    _ZincConfiguration = "ZincConfiguration",
 )
 
 ext_zinc_compile = {
     "attrs": {
         "scala": attr.label(
             default = "//external:default_scala",
-            doc = "The `ScalaConfiguration`. Among other things, this specifies which scala version to use.\n Defaults to the default_scala target specified in the WORKSPACE file.",
+            doc = "The `ScalaConfiguration`. Among other things, this specifies which scala version to use.\n Defaults to the default_scala target specified in the WORKSPACE file.\n Also includes ZincConfiguration data.",
             providers = [
                 _ScalaConfiguration,
+                _ZincConfiguration,
             ],
         ),
     },
