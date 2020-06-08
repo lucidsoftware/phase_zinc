@@ -4,7 +4,7 @@
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
 
-# Zinc compile runner. 
+# Zinc compile runner.
 scala_binary(
     name = "workers",
     srcs = glob(["*.scala"]),

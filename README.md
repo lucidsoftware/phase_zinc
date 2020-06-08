@@ -15,14 +15,12 @@ This project is aimed at anyone who depends on the [bazelbuild/rules_scala](http
 Phase_zinc defines a Zinc compiler phase, then adds this phase to three Bazel rules originally defined in [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala): `scala_binary`, `scala_library` and `scala_test`. The new corresponding rules are named, respectively, `zinc_scala_binary`, `zinc_scala_library` and `zinc_scala_test`.
 
 The [rules](rules) directory contains definitions and implementations of the Zinc compiler phase. [rules/phase/phase_zinc_compile.bzl](rules/phase/phase_zinc_compile.bzl) defines the logic of how the phase works. [rules/ext/phase_zinc_compile_ext.bzl](rules/ext/phase_zinc_compile_ext.bzl) wraps the phase definition in an extension together with some extra attributes. Finally, [rules/scala.bzl](rules/scala.bzl) passes the extension to a rule macro (e.g. `make_scala_binary`) to add the phase to a rule (e.g. creating `zinc_scala_binary`).
- 
-The [test](test) directory contains Scala source code to test functionality of the phase.
 
-The [scripts](scripts) directory contains shell scripts to run these tests. Run `scripts/travis.sh` to execute all tests.
+The [src/main/scala](src/main/scala) directory contains Scala and Zinc configuration data. See [src/main/scala/workers/BUILD](src/main/scala/workers/BUILD).
 
 ## How to set up
 
- Here is an example of how to load and use the rule `zinc_scala_binary` in your own project. Similar steps can be taken to use `zinc_scala_library` or `zinc_scala_test`. 
+Here is an example of how to load and use the rule `zinc_scala_binary` in your own project. Similar steps can be taken to use `zinc_scala_library` or `zinc_scala_test`. 
  
 To start, add this snippet to `WORKSPACE`:
 ```

@@ -5,6 +5,7 @@ load(
     _make_scala_library = "make_scala_library",
     _make_scala_test = "make_scala_test",
 )
+
 # ScalaRulePhase lets us provide phases to the customizable rules
 load(
     "@io_bazel_rules_scala//scala:advanced_usage/providers.bzl",
@@ -24,7 +25,7 @@ load(
 )
 
 # These lines create custom versions of rules (eg. a custom scala_binary rule named "zinc_scala_binary").
-# In this case, by passing in _ext_zinc_compile, the maker function replaces the 
+# In this case, by passing in _ext_zinc_compile, the maker function replaces the
 #  normal compiler with the Zinc compiler. "attrs" and "outputs" are also passed to the rule.
 
 # These rules have the Zinc compiler

@@ -12,8 +12,8 @@ load(
     _ZincConfiguration = "ZincConfiguration",
 )
 
-# This is a dictionary containing the phase to be inserted. 
-# It also adds a "scala" attribute which ensures a ScalaConfiguration provider is  
+# This is a dictionary containing the phase to be inserted.
+# It also adds a "scala" attribute which ensures a ScalaConfiguration provider is
 #  available to the phase logic in //rules/phases/phase_zinc_compile.bzl
 
 # In //rules/scala.bzl, ext_zinc_compile is used to make custom variants of rules (scala_binary --> zinc_scala_binary, etc)

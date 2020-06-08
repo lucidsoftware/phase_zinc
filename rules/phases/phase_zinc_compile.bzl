@@ -25,7 +25,6 @@ load(
 
 # This function provides the logic for the Zinc compiler phase
 def phase_zinc_compile(ctx, p):
-
     #  This configuration data is provided in //rules/BUILD.bazel, based on implementation defined in //rules/scala.bzl
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
