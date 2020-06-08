@@ -6,19 +6,19 @@
 *  [How to set up](#how-to-set-up)
 
 ## Overview
-A custom phase extension allowing Bazel users to compile Scala source code using the [Zinc compiler](https://github.com/sbt/zinc). To learn what "customizable phases" are and how the phase architecture can help your Bazel project, see [this doc on customizable phases](https://github.com/bazelbuild/rules_scala/blob/master/docs/customizable_phase.md) on the [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala) project.
+A custom phase extension allowing [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala) users to use the [Zinc compiler](https://github.com/sbt/zinc). To learn what "customizable phases" are and how the phase architecture can help your Bazel project, see [this doc on customizable phases](https://github.com/bazelbuild/rules_scala/blob/master/docs/customizable_phase.md) on the [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala) project.
 
-This project is aimed at anyone who depends on the bazelbuild/rules_scala project but would like to swap out the default XXX compiler with Zinc compiler. This is especially helpful for developers or companies whose codebases have large Bazel targets -- if Bazel targets are not granular enough, builds can take a long time. Because Zinc is an incremental compiler, it can lead to significant performance increases. However, be aware that Zinc also adds non-determinism to your builds.
+This project is aimed at anyone who depends on the [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala) project but would like to swap out the default Scala compiler with Zinc compiler. This is especially helpful for codebases that have Bazel targets with large numbers of source files-- if Bazel targets are not granular enough, builds can take a long time. Because Zinc is an incremental compiler, it can make builds significantly faster. However, be aware that Zinc can also add non-determinism to your builds.
 
 ## Files included
 
-Phase_zinc defines a Zinc compiler phase, then adds this phase to three Bazel rules originally defined in bazelbuild/rules_scala: `scala_binary`, `scala_library` and `scala_test`. The new corresponding rules are named, respectively, `zinc_scala_binary`, `zinc_scala_library` and `zinc_scala_test`.
+Phase_zinc defines a Zinc compiler phase, then adds this phase to three Bazel rules originally defined in [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala): `scala_binary`, `scala_library` and `scala_test`. The new corresponding rules are named, respectively, `zinc_scala_binary`, `zinc_scala_library` and `zinc_scala_test`.
 
-The `rules` directory contains definitions and implementations of the Zinc compiler phase. `rules/phase/phase_zinc_compile.bzl` defines the logic of how the phase works. `rules/ext/phase_zinc_compile_ext.bzl` wraps the phase definition in an extension together with some extra attributes. Finally, `rules/scala.bzl` passes the extension to a rule macro (e.g. `make_scala_binary`) to add the phase to a rule (e.g. creating `zinc_scala_binary`).
+The [rules](rules) directory contains definitions and implementations of the Zinc compiler phase. [rules/phase/phase_zinc_compile.bzl](rules/phase/phase_zinc_compile.bzl) defines the logic of how the phase works. [rules/ext/phase_zinc_compile_ext.bzl](rules/ext/phase_zinc_compile_ext.bzl) wraps the phase definition in an extension together with some extra attributes. Finally, [rules/scala.bzl](rules/scala.bzl) passes the extension to a rule macro (e.g. `make_scala_binary`) to add the phase to a rule (e.g. creating `zinc_scala_binary`).
  
-The `test` directory contains Scala source code to test functionality of the phase.
+The [test](test) directory contains Scala source code to test functionality of the phase.
 
-The `scripts` directory contains shell scripts to run these tests. Run `scripts/travis.sh` to execute all tests.
+The [scripts](scripts) directory contains shell scripts to run these tests. Run `scripts/travis.sh` to execute all tests.
 
 ## How to set up
 
@@ -46,20 +46,8 @@ zinc_pinned_maven_install()
 ```
 This adds the `phase_zinc` repo to your workspace and loads some dependencies. Make sure you have the desired commit hash (in case this repository is updated but this README is not). Also check to make sure the sha256 matches.
 
-Next, create a new `.bzl` file in your project (e.g. `zinc.bzl`) and add the following line:
+
+Sweet, now you can use `zinc_scala_binary` as a normal rule! Just add the following line to any `BUILD` file:
 ```
 load("@phase_zinc//rules:scala.bzl", "zinc_scala_binary")
 ```
-Now you can use `zinc_scala_binary` as a normal rule!
-
-This extension adds to the rule a new attribute called `scala`, which among other things, specifies which Scala and Zinc configuration data to use. Though a default is provided, you can add custom configuration by:
-
-**TO-DO**
-
-
-
-
-
-
-
-
