@@ -26,9 +26,6 @@ The `scripts` directory contains shell scripts to run these tests. Run `scripts/
  
 To start, add this snippet to `WORKSPACE`:
 ```
-################################################################################
-# Phase Zinc
-################################################################################
 phase_zinc_version = "9ebfe30b7074ab7a1411b2ce1c72f4c182c07e0e" #INSERT UPDATED COMMIT HASH HERE
 
 http_archive(
@@ -46,7 +43,6 @@ zinc_repositories()
 load("@zinc//:defs.bzl", zinc_pinned_maven_install = "pinned_maven_install")
 
 zinc_pinned_maven_install()
-
 ```
 This adds the `phase_zinc` repo to your workspace and loads some dependencies. Make sure you have the desired commit hash (in case this repository is updated but this README is not). Also check to make sure the sha256 matches.
 
@@ -54,7 +50,11 @@ Next, create a new `.bzl` file in your project (e.g. `zinc.bzl`) and add the fol
 ```
 load("@phase_zinc//rules:scala.bzl", "zinc_scala_binary")
 ```
+Now you can use `zinc_scala_binary` as a normal rule!
 
+This extension adds to the rule a new attribute called `scala`, which among other things, specifies which Scala and Zinc configuration data to use. Though a default is provided, you can add custom configuration by:
+
+**TO-DO**
 
 
 
