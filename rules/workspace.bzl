@@ -16,6 +16,7 @@ def scala_repositories():
         url = "https://repo.maven.apache.org/maven2/org/scala-sbt/compiler-bridge_2.12/1.2.1/compiler-bridge_2.12-1.2.1-sources.jar",
     )
 
+# This function creates an external workspace (@zinc) which loads many source files and Zinc dependencies
 def zinc_repositories():
     phase_zinc_artifacts = [
         "org.scala-lang:scala-compiler:2.12.10",
