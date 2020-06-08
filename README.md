@@ -12,10 +12,54 @@ This project is aimed at anyone who depends on the bazelbuild/rules_scala projec
 
 ## Files included
 
-The `rules` directory contains definitions and implementations of the Zinc compiler phase. `rules/phases/phase_zinc_compile.bzl` defines the logic of how the phase works. `rules/ext/phase_zinc_compile_ext.bzl` wraps the phase definition together with some extra attributes and defines how it will be implemented.
+Phase_zinc defines a Zinc compiler phase, then adds this phase to three Bazel rules originally defined in bazelbuild/rules_scala: `scala_binary`, `scala_library` and `scala_test`. The new corresponding rules are named, respectively, `zinc_scala_binary`, `zinc_scala_library` and `zinc_scala_test`.
 
+The `rules` directory contains definitions and implementations of the Zinc compiler phase. `rules/phase/phase_zinc_compile.bzl` defines the logic of how the phase works. `rules/ext/phase_zinc_compile_ext.bzl` wraps the phase definition in an extension together with some extra attributes. Finally, `rules/scala.bzl` passes the extension to a rule macro (e.g. `make_scala_binary`) to add the phase to a rule (e.g. creating `zinc_scala_binary`).
+ 
 The `test` directory contains Scala source code to test functionality of the phase.
 
 The `scripts` directory contains shell scripts to run these tests. Run `scripts/travis.sh` to execute all tests.
 
 ## How to set up
+
+ Here is an example of how to load and use the rule `zinc_scala_binary` in your own project. Similar steps can be taken to use `zinc_scala_library` or `zinc_scala_test`. 
+ 
+To start, add this snippet to `WORKSPACE`:
+```
+################################################################################
+# Phase Zinc
+################################################################################
+phase_zinc_version = "9ebfe30b7074ab7a1411b2ce1c72f4c182c07e0e" #INSERT UPDATED COMMIT HASH HERE
+
+http_archive(
+    name = "phase_zinc",
+    sha256 = "61112d0da1db63227f4573ce8da36f5b7f283c36aaa97b655111f711d538e521", #INSERT UPDATED SHA256 HERE
+    strip_prefix = "phase_zinc-{}".format(phase_zinc_version),
+    type = "zip",
+    url = "https://github.com/lucidsoftware/phase_zinc/archive/{}.zip".format(phase_zinc_version),
+)
+
+load("@phase_zinc//rules:workspace.bzl", "zinc_repositories")
+
+zinc_repositories()
+
+load("@zinc//:defs.bzl", zinc_pinned_maven_install = "pinned_maven_install")
+
+zinc_pinned_maven_install()
+
+```
+This adds the `phase_zinc` repo to your workspace and loads some dependencies. Make sure you have the desired commit hash (in case this repository is updated but this README is not). Also check to make sure the sha256 matches.
+
+Next, create a new `.bzl` file in your project (e.g. `zinc.bzl`) and add the following line:
+```
+load("@phase_zinc//rules:scala.bzl", "zinc_scala_binary")
+```
+
+
+
+
+
+
+
+
+
