@@ -15,10 +15,6 @@ load(
     _ZincInfo = "ZincInfo",
 )
 load(
-    "@phase_zinc//rules:phases/phase_zinc_compile.bzl",
-    _phase_zinc_compile = "phase_zinc_compile",
-)
-load(
     "@phase_zinc//rules/ext:phase_zinc_compile_ext.bzl",
     _ext_zinc_compile = "ext_zinc_compile",
 )
