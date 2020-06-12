@@ -1,4 +1,4 @@
-# make_scala_binary, etc are customizable rule makers. We can add or modify the definitions by adding/swapping phases
+# make_scala_binary, etc are customizable rule macros. We can add or modify the definitions by adding/swapping phases
 load(
     "@io_bazel_rules_scala//scala:advanced_usage/scala.bzl",
     _make_scala_binary = "make_scala_binary",
@@ -25,7 +25,7 @@ load(
 )
 
 # These lines create custom versions of rules (eg. a custom scala_binary rule named "zinc_scala_binary").
-# In this case, by passing in _ext_zinc_compile, the maker function replaces the
+# In this case, by passing in _ext_zinc_compile, the rule macro replaces the
 #  normal compiler with the Zinc compiler. "attrs" and "outputs" are also passed to the rule.
 
 # These rules have the Zinc compiler
