@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-# Borrowed from https://github.com/higherkindness/rules_scala
+# Borrowed from https://github.com/higherkindness/rules_scala/blob/b772564a20eee9271068cfba55147191385343bd/scripts/travis.sh
 ###
 
 #
