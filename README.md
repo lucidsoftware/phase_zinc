@@ -40,7 +40,7 @@ zinc_pinned_maven_install()
 ```
 This adds the `phase_zinc` repo to your workspace and loads some dependencies. Make sure you have the desired commit hash (in case this repository is updated but this README is not). Also check to make sure the sha256 matches.
 
-To add this phase to a rule, you have to pass the extension to a rule macro. Take `scala_binary` for example: first, load the rule macro from [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala), then load the extension from @phase_zinc and finally pass the extension to the macro to define a custom rule:
+To add this phase to a rule, you have to pass the extension to a rule macro. Take `scala_binary` for example: first, load the rule macro from [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala), then load the extension from @phase_zinc and finally pass the extension to the macro to define a custom rule. You'll also need to make sure you have loaded the [bazelbuild/rules_scala](https://github.com/bazelbuild/rules_scala) workspace to your own `WORKSPACE` file. In this example we assume it was loaded as `@io_bazel_rules_scala`):
 ```
 load("@io_bazel_rules_scala//scala:advanced_usage/scala.bzl", "make_scala_binary")
 load("@phase_zinc//rules/ext:phase_zinc_compile_ext.bzl", "ext_zinc_compile")
