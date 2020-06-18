@@ -23,10 +23,13 @@ load(
     _ZincInfo = "ZincInfo",
 )
 
+# This function provides the logic for the Zinc compiler phase
 def phase_zinc_compile(ctx, p):
+    #  This configuration data is provided in //rules/BUILD.bazel, based on implementation defined in //rules/scala.bzl
     scala_configuration = ctx.attr.scala[_ScalaConfiguration]
     zinc_configuration = ctx.attr.scala[_ZincConfiguration]
 
+    # Declare files to be created
     label_path = "zinc/" + ctx.label.name
     apis = ctx.actions.declare_file("{}/apis.gz".format(label_path))
     infos = ctx.actions.declare_file("{}/infos.gz".format(label_path))
@@ -53,6 +56,7 @@ def phase_zinc_compile(ctx, p):
     srcs = get_files_with_extension(ctx, java_extension) + get_files_with_extension(ctx, scala_extension)
     src_jars = get_files_with_extension(ctx, srcjar_extension)
 
+    # Add arguments
     args = ctx.actions.args()
     args.add_all(depset(transitive = [zinc.deps for zinc in zincs]), map_each = _compile_analysis)
     args.add("--compiler_bridge", zinc_configuration.compiler_bridge)
@@ -78,6 +82,8 @@ def phase_zinc_compile(ctx, p):
     args.set_param_file_format("multiline")
     args.use_param_file("@%s", use_always = True)
 
+    # Scala binary compiled from target @phase_zinc//src/main/scala/workers
+    # This builds the Zinc compile runner
     worker = zinc_configuration.compile_worker
 
     worker_inputs, _, input_manifests = ctx.resolve_command(tools = [worker])

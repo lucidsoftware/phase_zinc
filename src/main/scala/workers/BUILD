@@ -1,5 +1,10 @@
+###
+# Scala source files in this directory borrowed from https://github.com/higherkindness/rules_scala/tree/b772564a20eee9271068cfba55147191385343bd/src/main/scala/higherkindness/rules_scala/workers/zinc/compile
+###
+
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
 
+# Zinc compile runner.
 scala_binary(
     name = "workers",
     srcs = glob(["*.scala"]),

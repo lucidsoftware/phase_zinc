@@ -161,6 +161,7 @@ load("@phase_zinc//rules:workspace.bzl", "scala_repositories")
 
 scala_repositories()
 
+# Rename the Scala and Zinc configuration target to "default_scala" so it can be accessed by phase_zinc_compile_ext.bzl
 bind(
     name = "default_scala",
     actual = "@phase_zinc//rules:zinc",

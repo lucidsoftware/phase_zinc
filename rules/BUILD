@@ -28,6 +28,7 @@ scala_library(
     ],
 )
 
+# Load values into ScalaConfiguration and ZincConfiguration, which are later passed into phase_zinc_compile
 configure_zinc_scala(
     name = "zinc",
     compiler_bridge = ":compiler_bridge",

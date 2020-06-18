@@ -1,9 +1,12 @@
+# make_scala_binary, etc are customizable rule macros. We can add or modify the definitions by adding/swapping phases
 load(
     "@io_bazel_rules_scala//scala:advanced_usage/scala.bzl",
     _make_scala_binary = "make_scala_binary",
     _make_scala_library = "make_scala_library",
     _make_scala_test = "make_scala_test",
 )
+
+# ScalaRulePhase lets us provide phases to the customizable rules
 load(
     "@io_bazel_rules_scala//scala:advanced_usage/providers.bzl",
     _ScalaRulePhase = "ScalaRulePhase",
@@ -14,17 +17,24 @@ load(
     _ZincConfiguration = "ZincConfiguration",
     _ZincInfo = "ZincInfo",
 )
+
+# ext_zinc_compile is a dictionary that could contain up to 3 keys: "attrs", "outputs", and "phase_providers".
+# Each of these 3 items will be passed to the rule definition when the make_scala_binary function is called.
 load(
     "@phase_zinc//rules/ext:phase_zinc_compile_ext.bzl",
     _ext_zinc_compile = "ext_zinc_compile",
 )
 
-# with Zinc
+# These lines create custom versions of rules (eg. a custom scala_binary rule named "zinc_scala_binary").
+# In this case, by passing in _ext_zinc_compile, the rule macro replaces the
+#  normal compiler with the Zinc compiler. "attrs" and "outputs" are also passed to the rule.
+
+# These rules have the Zinc compiler
 zinc_scala_binary = _make_scala_binary(_ext_zinc_compile)
 zinc_scala_library = _make_scala_library(_ext_zinc_compile)
 zinc_scala_test = _make_scala_test(_ext_zinc_compile)
 
-# without Zinc
+#  These rules are the default versions, without Zinc compiler
 scala_binary = _make_scala_binary()
 scala_library = _make_scala_library()
 scala_test = _make_scala_test()
@@ -62,6 +72,7 @@ configure_bootstrap_scala = rule(
     implementation = _configure_bootstrap_scala_implementation,
 )
 
+# This rule/implementation load values into ScalaConfiguration and ZincConfiguration, which are later passed into phase_zinc_compile
 def _configure_zinc_scala_implementation(ctx):
     return [
         _ScalaConfiguration(
