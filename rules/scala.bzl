@@ -17,6 +17,7 @@ load(
     _ZincConfiguration = "ZincConfiguration",
     _ZincInfo = "ZincInfo",
 )
+
 # ext_zinc_compile is a dictionary that could contain up to 3 keys: "attrs", "outputs", and "phase_providers".
 # Each of these 3 items will be passed to the rule definition when the make_scala_binary function is called.
 load(
