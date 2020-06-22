@@ -20,11 +20,11 @@ The [src/main/scala](src/main/scala) directory contains Scala and Zinc configura
 
 To start, add this snippet to `WORKSPACE`:
 ```
-phase_zinc_version = "9ebfe30b7074ab7a1411b2ce1c72f4c182c07e0e" #INSERT UPDATED COMMIT HASH HERE
+phase_zinc_version = "553e3ff8e82025372c1342900f5e81b9de7b23ed" #INSERT UPDATED COMMIT HASH HERE
 
 http_archive(
     name = "phase_zinc",
-    sha256 = "61112d0da1db63227f4573ce8da36f5b7f283c36aaa97b655111f711d538e521", #INSERT UPDATED SHA256 HERE
+    sha256 = "199651d549f81aa23c6dc06b74084b3c4be149b91c7e387b3c1c6dbbee96aa30", #INSERT UPDATED SHA256 HERE
     strip_prefix = "phase_zinc-{}".format(phase_zinc_version),
     type = "zip",
     url = "https://github.com/lucidsoftware/phase_zinc/archive/{}.zip".format(phase_zinc_version),
